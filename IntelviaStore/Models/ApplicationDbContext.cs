@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using IntelviaStore.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,7 @@ namespace IntelviaStore.Authentication
             base.OnModelCreating(builder);
 
         }
+
+        public DbSet<Product> produit { get; set; }
     }
 }

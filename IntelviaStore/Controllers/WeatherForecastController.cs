@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace IntelviaStore.Controllers
 {
-    [Authorize(Roles =userRoles.Admin)]
+    [Authorize(Roles = userRoles.Admin)]
     [Authorize]
     [ApiController]
     [Route("[controller]")]

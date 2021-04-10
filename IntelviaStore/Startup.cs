@@ -1,4 +1,5 @@
 using IntelviaStore.Authentication;
+using IntelviaStore.ProductData;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,6 +31,7 @@ namespace IntelviaStore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<Iproduct, ProductRepository>();
            
             services.AddControllers();
             //Entity Framework
@@ -37,6 +39,8 @@ namespace IntelviaStore
             //Add Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            services.AddSingleton<Iproduct, ProductRepository>();
             //Add Authentication 
             services.AddAuthentication(Option =>
             {
@@ -60,6 +64,8 @@ namespace IntelviaStore
 
                });
 
+            
+
 
 
         }
@@ -73,7 +79,7 @@ namespace IntelviaStore
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
