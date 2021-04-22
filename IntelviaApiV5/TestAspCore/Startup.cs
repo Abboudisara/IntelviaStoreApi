@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TestAspCore.Authentication;
+using TestAspCore.Models;
+using TestAspCore.Repositories;
 
 namespace TestAspCore
 {
@@ -35,6 +39,8 @@ namespace TestAspCore
             services.AddControllers();
             //For Entity Framework
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("connexion")));
+            //Add scoped
+            services.AddScoped<IStoreRepository<CategorieModel>,CategorieRepository>();
 
             //For Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -48,6 +54,8 @@ namespace TestAspCore
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
+
+                
 
             //Adding Jwt Bearer
             .AddJwtBearer(options =>
@@ -84,6 +92,13 @@ namespace TestAspCore
             }
 
             app.UseRouting();
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Images")),
+                    RequestPath = "/Images"
+                }
+                );
 
             //Authentication comes before Authorization.
             app.UseAuthentication();

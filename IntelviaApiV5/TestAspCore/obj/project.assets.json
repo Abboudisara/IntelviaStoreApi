@@ -6405,11 +6405,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Youcode\\Desktop\\AspCoreAPI\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
+      "projectUniqueName": "C:\\Users\\Youcode\\Desktop\\IntelviaStoreApi\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
       "projectName": "TestAspCore",
-      "projectPath": "C:\\Users\\Youcode\\Desktop\\AspCoreAPI\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
+      "projectPath": "C:\\Users\\Youcode\\Desktop\\IntelviaStoreApi\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
       "packagesPath": "C:\\Users\\Youcode\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Youcode\\Desktop\\AspCoreAPI\\IntelviaApiV5\\TestAspCore\\obj\\",
+      "outputPath": "C:\\Users\\Youcode\\Desktop\\IntelviaStoreApi\\IntelviaApiV5\\TestAspCore\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"

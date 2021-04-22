@@ -8,5 +8,6 @@ namespace TestAspCore.Authentication
 {
     public class ApplicationUser : IdentityUser
     {
+        
     }
 }

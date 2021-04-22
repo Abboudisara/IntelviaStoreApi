@@ -215,6 +215,121 @@ namespace TestAspCore.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("TestAspCore.Models.CategorieModel", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SourceImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CommandeModel", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("User_id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("User_id");
+
+                    b.ToTable("Commendes");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CommendProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CmdId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Q_Commande")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("prdId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CmdId");
+
+                    b.HasIndex("prdId");
+
+                    b.ToTable("cmdProducts");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.ImageProduct", b =>
+                {
+                    b.Property<Guid>("Id_image")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Images")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("Product_Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id_image");
+
+                    b.HasIndex("Product_Id");
+
+                    b.ToTable("Image_Products");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.ProductModel", b =>
+                {
+                    b.Property<Guid>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Catgo_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CommandeModelid")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Nom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("QStock")
+                        .HasColumnType("int");
+
+                    b.Property<string>("description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("prix")
+                        .HasColumnType("real");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("Catgo_id");
+
+                    b.HasIndex("CommandeModelid");
+
+                    b.ToTable("productsI");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -264,6 +379,77 @@ namespace TestAspCore.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CommandeModel", b =>
+                {
+                    b.HasOne("TestAspCore.Authentication.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("User_id");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CommendProduct", b =>
+                {
+                    b.HasOne("TestAspCore.Models.CommandeModel", "Commends")
+                        .WithMany()
+                        .HasForeignKey("CmdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TestAspCore.Models.ProductModel", "products")
+                        .WithMany("Commends")
+                        .HasForeignKey("prdId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Commends");
+
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.ImageProduct", b =>
+                {
+                    b.HasOne("TestAspCore.Models.ProductModel", "product")
+                        .WithMany("Image")
+                        .HasForeignKey("Product_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("product");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.ProductModel", b =>
+                {
+                    b.HasOne("TestAspCore.Models.CategorieModel", "Categories")
+                        .WithMany("products")
+                        .HasForeignKey("Catgo_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("TestAspCore.Models.CommandeModel", null)
+                        .WithMany("Products")
+                        .HasForeignKey("CommandeModelid");
+
+                    b.Navigation("Categories");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CategorieModel", b =>
+                {
+                    b.Navigation("products");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.CommandeModel", b =>
+                {
+                    b.Navigation("Products");
+                });
+
+            modelBuilder.Entity("TestAspCore.Models.ProductModel", b =>
+                {
+                    b.Navigation("Commends");
+
+                    b.Navigation("Image");
                 });
 #pragma warning restore 612, 618
         }

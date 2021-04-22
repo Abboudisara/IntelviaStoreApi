@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cjVLERhPC0DN0yJGBcqmggHPOs9+hIJt1nRtVi/Toorll4MUI+L0JFKsXOE9SHkN96IViOwdamgkDraOQ9CENQ==",
+  "dgSpecHash": "DhwVgZlom/w2A//+O8MNnc6nBl2MKWn72X8qdLtHQ5buLrpco5WmDqb0qj9XpvRz1tLd/DywoxoRps1A8YZKXg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Youcode\\Desktop\\AspCoreAPI\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
+  "projectFilePath": "C:\\Users\\Youcode\\Desktop\\IntelviaStoreApi\\IntelviaApiV5\\TestAspCore\\TestAspCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Youcode\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Youcode\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",

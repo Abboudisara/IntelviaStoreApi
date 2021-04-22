@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TestAspCore.Authentication
 {
-    public class RegisterModel
+    public class RegisterModel 
     {
         [Required(ErrorMessage ="Username is required")]
         public string UserName { get; set; }
