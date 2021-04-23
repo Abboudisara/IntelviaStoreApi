@@ -13,9 +13,10 @@ namespace TestAspCore.Models
         [Key]
         public Guid id { get; set; }
         public string Nom { get; set; }
+        
+        public string ImageName { get; set; }
+
         [NotMapped]
-        public string ImageNam { get; set; }
-       
         public string SourceImage { get; set; }
         [NotMapped]
         public IFormFile Image { get; set; }

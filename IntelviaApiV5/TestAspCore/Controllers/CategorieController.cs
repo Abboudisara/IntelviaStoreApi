@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -18,10 +19,13 @@ namespace TestAspCore.Controllers
     {
         private readonly IStoreRepository<CategorieModel> _store;
         private readonly ApplicationDbContext _db;
-        public CategorieController(IStoreRepository<CategorieModel> store , ApplicationDbContext db)
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public CategorieController(IStoreRepository<CategorieModel> store , ApplicationDbContext db, IWebHostEnvironment hostEnvironment)
         {
             _store = store;
             _db = db;
+            this._hostEnvironment = hostEnvironment;
         }
 
 
@@ -36,7 +40,7 @@ namespace TestAspCore.Controllers
                     id=x.id,
                     Nom=x.Nom,
                  
-                    SourceImage=string.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageNam),
+                    SourceImage=string.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName),
                     Image=x.Image,
 
                 })
@@ -52,10 +56,13 @@ namespace TestAspCore.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<CategorieModel>> PostCategorys([FromBody] CategorieModel categorie)
+        public async Task<ActionResult<CategorieModel>> PostCategorys([FromForm] CategorieModel categorie)
         {
-            var newCategorie = await _store.Create(categorie);
-            return CreatedAtAction(nameof(GetCategory), new { id = newCategorie.id }, newCategorie);
+            categorie.ImageName = await SaveImages(categorie.Image);
+            //var newCategorie = await _store.Create(categorie);
+            _db.Categories.Add(categorie);
+            await _db.SaveChangesAsync();
+            return StatusCode(201);
         }
 
         //[HttpPost]
@@ -100,5 +107,21 @@ namespace TestAspCore.Controllers
             return NoContent();
         }
 
+
+        [NonAction]
+        public async Task<string> SaveImages(IFormFile image)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(image.FileName).Take(10).ToArray()).Replace(' ', '-');
+            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(image.FileName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await image.CopyToAsync(fileStream);
+            }
+            return imageName;
+        }
+
     }
 }
+
+

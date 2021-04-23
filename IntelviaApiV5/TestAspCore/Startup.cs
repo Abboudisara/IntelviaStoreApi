@@ -35,7 +35,7 @@ namespace TestAspCore
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
             //For Entity Framework
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("connexion")));
@@ -56,6 +56,7 @@ namespace TestAspCore
             })
 
                 
+                
 
             //Adding Jwt Bearer
             .AddJwtBearer(options =>
@@ -74,6 +75,8 @@ namespace TestAspCore
                 };
             });
 
+           
+
             //Swagger
             services.AddSwaggerGen(c =>
             {
@@ -84,6 +87,10 @@ namespace TestAspCore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(options => options.WithOrigins("http://localhost:3001")
+               .AllowAnyMethod()
+               .AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -99,6 +106,7 @@ namespace TestAspCore
                     RequestPath = "/Images"
                 }
                 );
+           
 
             //Authentication comes before Authorization.
             app.UseAuthentication();
