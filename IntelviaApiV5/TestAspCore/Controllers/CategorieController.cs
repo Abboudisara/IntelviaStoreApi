@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TestAspCore.Authentication;
+using TestAspCore.DTOs;
 using TestAspCore.Models;
 using TestAspCore.Repositories;
 
@@ -54,16 +55,44 @@ namespace TestAspCore.Controllers
             return await _store.Get(id);
         }
 
-        [HttpPost]
+        //[HttpPost]
 
-        public async Task<ActionResult<CategorieModel>> PostCategorys([FromForm] CategorieModel categorie)
+        //public async Task<ActionResult<CategorieModel>> PostCategorys([FromForm] CategorieModel categorie)
+        //{
+        //    //categorie.ImageName = await SaveImages(categorie.Image);
+        //    //var newCategorie = await _store.Create(categorie);
+        //    var NewCategory = new CategorieModel
+        //    {
+        //        Nom = categorie.Nom,
+        //        ImageName = categorie.ImageName
+        //    };
+        //    _db.Categories.Add(NewCategory);
+        //    await _db.SaveChangesAsync();
+        //    return StatusCode(201);
+        //}
+
+
+        [HttpPost]
+        public async Task<ActionResult<CategoryDto>> PostCategory(CategoryDto categoryDto)
         {
-            categorie.ImageName = await SaveImages(categorie.Image);
-            //var newCategorie = await _store.Create(categorie);
-            _db.Categories.Add(categorie);
+            var NewCategory = new CategorieModel
+            {
+                Nom = categoryDto.Nom,
+                ImageName = categoryDto.ImageName
+            };
+
+            _db.Categories.Add(NewCategory);
             await _db.SaveChangesAsync();
-            return StatusCode(201);
+            return Ok(categoryDto);
+            //if (result > 0)
+            //{
+            //    return StatusCode(201);
+            //} else
+            //{
+            //    return StatusCode()
+            //}
         }
+
 
         //[HttpPost]
         //public string post([FromForm] CategorieModel categorie)
@@ -83,8 +112,8 @@ namespace TestAspCore.Controllers
         //                    return "Not uploded";
         //                }
         //    }
-    
-    [HttpPut]
+
+        [HttpPut]
         
         public async Task<ActionResult<CategorieModel>> PutCategorys(Guid id, [FromBody] CategorieModel categorie)
         {

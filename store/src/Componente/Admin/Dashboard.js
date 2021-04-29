@@ -1,4 +1,4 @@
-import React from 'react';
+import React ,{useState}from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
@@ -11,9 +11,14 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Category, Home, Phonelink, Settings, ShoppingCart} from "@material-ui/icons"
+import RegisterAdmin from '../fragments/RegisterAdmin.js'
 
 
-// import HomeFragment from '../Fragments/HomeFragment'
+
+
+
+
+
 
 
 const drawerWidth = 240;
@@ -43,6 +48,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer() {
   const classes = useStyles();
+  
+    const [fragment, setfragment] = useState("HOME")
+  
+    const loadFragment= () =>{
+  
+      switch (fragment)  {
+       
+       
+        case "REGISTER":
+          return <RegisterAdmin/>
+       
+        default:
+          break;
+  
+      }
+    }
 
   return (
     <div className={classes.root}>
@@ -77,6 +98,7 @@ export default function ClippedDrawer() {
                   <Category />
                 </ListItemIcon>
                 <ListItemText primary="Categories" />
+              
               </ListItem>
 
               <ListItem button>
@@ -93,11 +115,11 @@ export default function ClippedDrawer() {
                 <ListItemText primary="Orders" />
               </ListItem>
 
-              <ListItem button>
+              <ListItem button onClick={e=>setfragment("REGISTER")}>
                 <ListItemIcon>
                 <Phonelink />
                 </ListItemIcon>
-                <ListItemText primary="Register" />
+                <ListItemText primary="Register"  />
               </ListItem>
           
               <ListItem button>
@@ -116,7 +138,7 @@ export default function ClippedDrawer() {
       <main className={classes.content}>
          <Toolbar />
        
-     {/* <HomeFragment/> */}
+    { loadFragment()}
       </main>
     </div>
   );

@@ -1,17 +1,20 @@
 
 import './App.css';
-import CategoryList from './Componente/CategoryList';
-// import  Dashboard from './Componente/Admin/Dashboard.js'
-
+ import  Dashboard from './Componente/Admin/Dashboard.js'
+//import Register from './pages/Register.js'
+//import Login from './pages/Login.js'
 
 
 function App() {
   return (
-  // <Dashboard/>
-  <div className="container">
-    <CategoryList/>
+    //<Register/>
+   <Dashboard/>
+  //<div className="container">
+   //<CategoryList/>
+  //</div>
+ 
+// <Login/>
 
-  </div>
   );
 }
 
