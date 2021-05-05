@@ -15,6 +15,9 @@ namespace TestAspCore.Repositories
         {
             _db = db;
         }
+
+        public string webRoutPath => throw new NotImplementedException();
+
         public async Task<CommandeModel> Create(CommandeModel commende)
         {
             _db.Commendes.Add(commende);

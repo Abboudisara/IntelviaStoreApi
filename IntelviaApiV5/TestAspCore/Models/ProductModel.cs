@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,7 +17,7 @@ namespace TestAspCore.Models
         public virtual ICollection<CommendProduct> Commends { get; set; }
         public Guid Catgo_id { get; set; }
 
-        [ForeignKey(nameof(Catgo_id))]
+        [ForeignKey("Catgo_id")]
         public CategorieModel Categories { get; set; }
 
         public string Nom { get; set; }
@@ -24,7 +25,12 @@ namespace TestAspCore.Models
         public string description { get; set; }
         public int QStock { get; set; }
 
-        public virtual ICollection<ImageProduct> Image { get; set; }
+        public string ImageName { get; set; }
+
+        [NotMapped]
+        public string ImageSrc { get; set; }
+        [NotMapped]
+        public IFormFile ImageFile { get; set; }
 
     }
 }

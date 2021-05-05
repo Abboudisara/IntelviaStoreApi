@@ -12,14 +12,16 @@ namespace TestAspCore.Models
     {
         [Key]
         public Guid id { get; set; }
+
+        [Required(ErrorMessage = "The Nom field is required !")]
         public string Nom { get; set; }
-        
+        public string Description { get; set; }
         public string ImageName { get; set; }
 
         [NotMapped]
-        public string SourceImage { get; set; }
+        public string ImageSrc { get; set; }
         [NotMapped]
-        public IFormFile Image { get; set; }
+        public IFormFile ImageFile { get; set; }
         public virtual ICollection<ProductModel> products { get; set; }
 
     }

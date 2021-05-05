@@ -3,14 +3,14 @@ function Register(){
     const [username,setUserName]=useState("")
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
-   // const history=useHistory();
+   
     
    async function SignUp()
     {
         
         let item={username,email,password}
         console.warn(item)
-      let result=await  fetch("https://localhost:44347/api/ManagementUser/RegisterAdmin",{
+      let result = await  fetch("https://localhost:44347/api/ManagementUser/RegisterAdmin",{
             method:'POST',
             body:JSON.stringify(item),
             headers:{
@@ -18,7 +18,7 @@ function Register(){
                 "Accept":'application/json'
             }
         })
-        result= await result.json()
+        result = await result.json()
         console.warn("result",result)
         
     }

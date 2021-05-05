@@ -14,12 +14,14 @@ namespace TestAspCore.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IStoreRepository<ProductModel> _store;
+        private readonly IStoreRepository<CategorieModel> _storeCat;
 
-        public ProductController(IStoreRepository<ProductModel> store)
+        public ProductController(IStoreRepository<ProductModel> store, IStoreRepository<CategorieModel> storeCat)
         {
             _store = store;
+            _storeCat = storeCat;
         }
-        [HttpGet("GetProd")]
+        [HttpGet]
 
         public async Task<IEnumerable<ProductModel>> GetProduct()
         {
@@ -33,12 +35,13 @@ namespace TestAspCore.Controllers
             return await _store.Get(id);
         }
 
-        [HttpPost("Postproduct")]
+        [HttpPost]
 
-        public async Task<ActionResult<ProductModel>> Postproduct([FromBody] ProductModel product)
+        public async Task<IActionResult> Postproduct([FromBody] ProductModel product)
         {
-            var newproduct = await _store.Create(product);
-            return CreatedAtAction(nameof(GetProduct), new { id = newproduct.id }, newproduct);
+           // product.Categories = await _storeCat.Get(product.Catgo_id);
+            await _store.Create(product);
+            return StatusCode(201);
         }
 
         [HttpPut]

@@ -41,6 +41,7 @@ namespace TestAspCore
             services.AddDbContext<ApplicationDbContext>(option => option.UseSqlServer(Configuration.GetConnectionString("connexion")));
             //Add scoped
             services.AddScoped<IStoreRepository<CategorieModel>,CategorieRepository>();
+            services.AddScoped<IStoreRepository<ProductModel>, ProductRepository>();
 
             //For Identity
             services.AddIdentity<ApplicationUser, IdentityRole>()

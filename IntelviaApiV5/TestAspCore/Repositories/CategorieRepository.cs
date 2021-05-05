@@ -16,6 +16,8 @@ namespace TestAspCore.Repositories
             _db = db;
         }
 
+        public string webRoutPath => throw new NotImplementedException();
+
         public async Task<CategorieModel> Create(CategorieModel categorie)
         {
             _db.Categories.Add(categorie);

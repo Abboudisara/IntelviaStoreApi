@@ -10,8 +10,8 @@ using TestAspCore.Authentication;
 namespace TestAspCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210423111054_init2")]
-    partial class init2
+    [Migration("20210430141351_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,7 +223,10 @@ namespace TestAspCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ImageNam")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")

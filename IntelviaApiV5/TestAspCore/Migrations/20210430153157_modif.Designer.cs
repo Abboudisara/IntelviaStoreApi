@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestAspCore.Authentication;
 
 namespace TestAspCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210430153157_modif")]
+    partial class modif
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -313,9 +315,6 @@ namespace TestAspCore.Migrations
                     b.Property<Guid?>("CommandeModelid")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
 
@@ -419,7 +418,7 @@ namespace TestAspCore.Migrations
             modelBuilder.Entity("TestAspCore.Models.ImageProduct", b =>
                 {
                     b.HasOne("TestAspCore.Models.ProductModel", "product")
-                        .WithMany()
+                        .WithMany("Image")
                         .HasForeignKey("Product_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -455,6 +454,8 @@ namespace TestAspCore.Migrations
             modelBuilder.Entity("TestAspCore.Models.ProductModel", b =>
                 {
                     b.Navigation("Commends");
+
+                    b.Navigation("Image");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,6 +8,8 @@ namespace TestAspCore.Repositories
 {
     public  interface IStoreRepository<TEntity>
     {
+        string webRoutPath { get; }
+
         Task<IEnumerable<TEntity>> Get();
         Task <TEntity> Get(Guid id);
         Task<TEntity> Create(TEntity entity);

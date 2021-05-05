@@ -12,6 +12,10 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import {Category, Home, Phonelink, Settings, ShoppingCart} from "@material-ui/icons"
 import RegisterAdmin from '../fragments/RegisterAdmin.js'
+import Categorie from '../fragments/Categorie.js'
+import Product from '../fragments/Product.js'
+
+
 
 
 
@@ -55,7 +59,12 @@ export default function ClippedDrawer() {
   
       switch (fragment)  {
        
-       
+        case "CATEGORIE":
+          return <Categorie/>
+
+          case "PRODUCT":
+
+            return <Product/>
         case "REGISTER":
           return <RegisterAdmin/>
        
@@ -93,7 +102,7 @@ export default function ClippedDrawer() {
                 <ListItemText primary="Home" />
               </ListItem>
           
-              <ListItem button>
+              <ListItem button onClick={e=>setfragment("CATEGORIE")}>
                 <ListItemIcon>
                   <Category />
                 </ListItemIcon>
@@ -101,7 +110,7 @@ export default function ClippedDrawer() {
               
               </ListItem>
 
-              <ListItem button>
+              <ListItem button onClick={e=>setfragment("PRODUCT")}>
                 <ListItemIcon>
                   <Phonelink />
                 </ListItemIcon>

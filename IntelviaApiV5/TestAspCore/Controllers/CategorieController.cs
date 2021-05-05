@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using TestAspCore.Authentication;
-using TestAspCore.DTOs;
+
 using TestAspCore.Models;
 using TestAspCore.Repositories;
 
@@ -31,22 +31,22 @@ namespace TestAspCore.Controllers
 
 
         //Api Categorie
-        [HttpGet]
+        //[HttpGet]
      
-        public async Task<ActionResult<IEnumerable<CategorieModel>>> GetCategory()
-        {
+        //public async Task<ActionResult<IEnumerable<CategorieModel>>> GetCategory()
+        //{
             
-            return await _db.Categories
-                .Select(x=>new CategorieModel() { 
-                    id=x.id,
-                    Nom=x.Nom,
+        //    return await _db.Categories
+        //        .Select(x=>new CategorieModel() { 
+        //            id=x.id,
+        //            Nom=x.Nom,
                  
-                    SourceImage=string.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName),
-                    Image=x.Image,
+        //            SourceImage=string.Format("{0}://{1}{2}/Images/{3}",Request.Scheme,Request.Host,Request.PathBase,x.ImageName),
+        //            Image=x.Image,
 
-                })
-                .ToListAsync();
-        }
+        //        })
+        //        .ToListAsync();
+        //}
 
         [HttpGet("{id}")]
        
@@ -55,63 +55,17 @@ namespace TestAspCore.Controllers
             return await _store.Get(id);
         }
 
-        //[HttpPost]
-
-        //public async Task<ActionResult<CategorieModel>> PostCategorys([FromForm] CategorieModel categorie)
-        //{
-        //    //categorie.ImageName = await SaveImages(categorie.Image);
-        //    //var newCategorie = await _store.Create(categorie);
-        //    var NewCategory = new CategorieModel
-        //    {
-        //        Nom = categorie.Nom,
-        //        ImageName = categorie.ImageName
-        //    };
-        //    _db.Categories.Add(NewCategory);
-        //    await _db.SaveChangesAsync();
-        //    return StatusCode(201);
-        //}
 
 
         [HttpPost]
-        public async Task<ActionResult<CategoryDto>> PostCategory(CategoryDto categoryDto)
+        public async Task<ActionResult<CategorieModel>> Post([FromBody] CategorieModel category)
         {
-            var NewCategory = new CategorieModel
-            {
-                Nom = categoryDto.Nom,
-                ImageName = categoryDto.ImageName
-            };
-
-            _db.Categories.Add(NewCategory);
-            await _db.SaveChangesAsync();
-            return Ok(categoryDto);
-            //if (result > 0)
-            //{
-            //    return StatusCode(201);
-            //} else
-            //{
-            //    return StatusCode()
-            //}
+            //category.ImageName = await SaveImage(category.ImageFile);
+            await _store.Create(category);
+            return StatusCode(201);
         }
 
-
-        //[HttpPost]
-        //public string post([FromForm] CategorieModel categorie)
-        //{
-        //    try
-        //    {
-        //        if (categorie.image.Length > 0)
-        //        {
-        //            string path = _store.webRoutPath + "\\uploads\\";
-        //        }
-        //        if (!Directory.Exists(path))
-        //        {
-        //            Directory.CreateDirectory(path);
-        //        }
-        //        else
-        //                {
-        //                    return "Not uploded";
-        //                }
-        //    }
+       
 
         [HttpPut]
         
@@ -137,18 +91,18 @@ namespace TestAspCore.Controllers
         }
 
 
-        [NonAction]
-        public async Task<string> SaveImages(IFormFile image)
-        {
-            string imageName = new String(Path.GetFileNameWithoutExtension(image.FileName).Take(10).ToArray()).Replace(' ', '-');
-            imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(image.FileName);
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
-            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                await image.CopyToAsync(fileStream);
-            }
-            return imageName;
-        }
+        //[NonAction]
+        //public async Task<string> SaveImage(IFormFile imageFile)
+        //{
+        //    string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray());
+        //    imageName = imageName + DateTime.Now.ToString("yymmssfff") + Path.GetExtension(imageFile.FileName);
+        //    var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, "Images", imageName);
+        //    using (var fileStream = new FileStream(imagePath, FileMode.Create))
+        //    {
+        //        await imageFile.CopyToAsync(fileStream);
+        //    }
+        //    return imageName;
+        //}
 
     }
 }

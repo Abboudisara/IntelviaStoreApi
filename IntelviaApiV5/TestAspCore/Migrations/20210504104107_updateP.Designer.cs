@@ -10,8 +10,8 @@ using TestAspCore.Authentication;
 namespace TestAspCore.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210423111929_catModelUpdate")]
-    partial class catModelUpdate
+    [Migration("20210504104107_updateP")]
+    partial class updateP
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,10 +223,14 @@ namespace TestAspCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("ImageName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("id");
@@ -310,6 +314,9 @@ namespace TestAspCore.Migrations
 
                     b.Property<Guid?>("CommandeModelid")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ImageName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nom")
                         .HasColumnType("nvarchar(max)");
@@ -414,7 +421,7 @@ namespace TestAspCore.Migrations
             modelBuilder.Entity("TestAspCore.Models.ImageProduct", b =>
                 {
                     b.HasOne("TestAspCore.Models.ProductModel", "product")
-                        .WithMany("Image")
+                        .WithMany()
                         .HasForeignKey("Product_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -450,8 +457,6 @@ namespace TestAspCore.Migrations
             modelBuilder.Entity("TestAspCore.Models.ProductModel", b =>
                 {
                     b.Navigation("Commends");
-
-                    b.Navigation("Image");
                 });
 #pragma warning restore 612, 618
         }
