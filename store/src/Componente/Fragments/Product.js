@@ -2,6 +2,7 @@ import React ,{useState} from 'react'
 
 
 function Product(){
+ const [catgo,setCatgo_id] = useState("");
  const [nom,setNom] = useState("");
  const [prix,setprix] = useState(0);
  const [description,setdescription ] = useState("");
@@ -14,12 +15,15 @@ function Product(){
 
  async function addCategorie()
  {
-  console.warn(nom,description,imagename)
-//   const formData = new FormData();
-//   formData.append('nom', nom);
-//   formData.append('description', description);
-//   formData.append('imagename', imagename);
-let item={nom, prix, description, qtsock,imagename}
+  console.warn(catgo,nom,description,imagename)
+ // const formData = new FormData();
+   //formData.append('catgo', catgo);
+   //formData.append('nom', nom);
+   //formData.append('prix', prix);
+   //formData.append('description', description);
+  // formData.append('qtsock', qtsock);
+  // formData.append('imagename', imagename);
+  let item={catgo,nom, prix, description, qtsock,imagename}
 
  let result= await fetch("https://localhost:44347/api/Product",{
      method:'POST',
@@ -36,8 +40,10 @@ alert("Category has been Saved")
 
     return(
         <div>
-            <h1 className='col-sm-6 offset-sm-5'>Add CATEGORIES</h1>
+            <h1 className='col-sm-6 offset-sm-5'>Add PRODUCTS</h1>
             <div className='col-sm-6 offset-sm-3'>
+            <input type="text" className="form-control"  onChange={(e)=>setCatgo_id(e.target.value)} placeholder="category"/>
+            <br/>
             <input type="text" className="form-control"  onChange={(e)=>setNom(e.target.value)} placeholder="Name"/>
             <br/>
             <input type="text" className="form-control"  onChange={(e)=>setprix(e.target.value)} placeholder="Price"/>

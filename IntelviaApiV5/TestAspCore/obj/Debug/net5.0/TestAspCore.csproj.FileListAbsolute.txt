@@ -266,3 +266,9 @@ C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\obj\Debug\ne
 C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\obj\Debug\net5.0\ref\TestAspCore.dll
 C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\obj\Debug\net5.0\TestAspCore.pdb
 C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\obj\Debug\net5.0\TestAspCore.genruntimeconfig.cache
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\System.Web.Cors.dll
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\System.Web.Http.Cors.dll
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\Youcode\Desktop\IntelviaStoreApi\IntelviaApiV5\TestAspCore\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
